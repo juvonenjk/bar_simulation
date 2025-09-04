@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.swp
+*.swo
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# Virtual environment
+venv/
+.env
+.env.*
+
+# Pipenv / Poetry (if ever used)
+Pipfile.lock
+poetry.lock
+
+# MySQL / DB data
+*.sql
+*.db
+*.sqlite
+mysql_data/
+
+# Docker
+docker-compose.override.yml
+*.log
+*.pid
+
+# dbt
+dbt/__pycache__/
+dbt/target/
+dbt/dbt_packages/
+
+# Streamlit
+.streamlit/
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*~
