@@ -1,0 +1,82 @@
+version: '3.9'
+
+services:
+  generator:
+    build: ./generator
+    container_name: generator
+    restart: unless-stopped
+    depends_on:
+      parameters_db:
+        condition: service_healthy
+    environment:
+      - MYSQL_HOST=parameters_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./generator:/app
+    user: "1000:1000"
+    networks:
+      - bar_net
+
+  streamlit:
+    build: ./streamlit
+    container_name: streamlit
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    depends_on:
+      events_db:
+        condition: service_healthy
+    environment:
+      - STREAMLIT_ENV=production
+    volumes:
+      - ./streamlit:/app
+    user: "1000:1000"
+    networks:
+      - bar_net
+
+  events_db:
+    build: ./db
+    container_name: events_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: bar_events
+    ports:
+      - "3307:3306"
+    volumes:
+      - events_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -u root -p${MYSQL_PASSWORD} || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bar_net
+
+  parameters_db:
+    image: mysql:8.1
+    container_name: parameters_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: bar_parameters
+    ports:
+      - "3308:3306"
+    volumes:
+      - parameters_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -u root -p${MYSQL_PASSWORD} || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bar_net
+
+volumes:
+  events_db_data:
+  parameters_db_data:
+
+networks:
+  bar_net:
+    driver: bridge

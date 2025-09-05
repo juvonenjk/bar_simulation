@@ -15,6 +15,7 @@ __pycache__/
 venv/
 .env
 .env.*
+.bar_sim_env/
 
 # Pipenv / Poetry (if ever used)
 Pipfile.lock
