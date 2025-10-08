@@ -9,8 +9,10 @@ streamlit-authenticator>=0.4.2  # for authentication
 
 # dbt
 dbt-core>=1.7.9
-dbt-mysql>=1.7.0
+#dbt-mysql>=1.7.0
+dbt-postgres
 
 # Optional utilities
 python-dotenv>=1.1.1
 loguru>=0.7.3
+
