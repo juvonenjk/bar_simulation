@@ -1,0 +1,28 @@
+1. Data generation
+- Data should be generated according to some parameters that are also stored in some other database. The idea is that the analytics part and the generation part are separated from each other. Analytics is "blind" to the data generation logic and parameters
+- Each event should include customer id, timestamp, eventype, product(s), and their amounts. There could be 2 different places from where the events come from the DOOR (access) and REGISTER (customer transactions). Later there could be WAREHOUSE (warehouse transactions)
+- There should be possibility to run the simulation continuously and in batches
+- Customer data generation parameters should be stored in a database (consumption profiles etc.)
+
+2. Database (MYSQL, not MSSQL)
+- I don't have DB set up, so that should be set up and data should be modelled
+- Volume will be in thousands or 10Ks
+- There should be normalized tables (customers, products, transactions, access events etc.)
+- Data should be inserted (near) real-time
+- Transformation should be done with DBT. The raw layer should include only the event data, and everything else should be created by transformations from events
+
+3. Analytics
+- Let's not specify the visualizations yet
+- There should be a regular refresh for example every 1 minute
+
+4. Infrastructure / Deployment
+- For now, this will be run locally
+- Analytics and data generator should be run separately
+- Yes, dockerization should be done
+
+5. Extra Features
+- Streamlit needs authentication
+- Possibility for multible locations should be possible
+- Customer behaviour should be realistic (customer can't order drinks, if they are not in the bar)
+- There should be logging and error handling
+

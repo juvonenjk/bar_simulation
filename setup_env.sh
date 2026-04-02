@@ -7,7 +7,7 @@ set -e
 ENV_NAME=".bar_sim_env"
 
 echo "Creating Python virtual environment: $ENV_NAME"
-python3.11 -m venv $ENV_NAME
+python3 -m venv $ENV_NAME
 
 echo "Activating virtual environment"
 source $ENV_NAME/bin/activate

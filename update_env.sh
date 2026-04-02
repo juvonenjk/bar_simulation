@@ -1,7 +1,7 @@
 #!/bin/bash
 # Update virtual environment dependencies
 
-ENV_NAME="bar_sim_env"
+ENV_NAME=".bar_sim_env"
 
 if [ ! -d "$ENV_NAME" ]; then
   echo "Virtual environment $ENV_NAME not found. Run setup_env.sh first."
